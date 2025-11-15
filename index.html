@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rees Scientific: 2026-2027 Growth Strategy</title>
+    <title>Rees Scientific: 2026-2027 Strategic Growth and Target Plan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
+    <script src="https://unpkg.com/lucide@latest"></script> <style>
+        /* BASE STYLES from index.html */
         * {
             margin: 0;
             padding: 0;
@@ -17,14 +18,14 @@
         }
         
         :root {
-            --color-primary: #4F46E5;
+            --color-primary: #4F46E5; /* Indigo */
             --color-primary-dark: #4338CA;
             --color-primary-light: #6366F1;
-            --color-secondary: #10B981;
+            --color-secondary: #10B981; /* Emerald */
             --color-secondary-dark: #059669;
-            --color-tertiary: #F59E0B;
+            --color-tertiary: #F59E0B; /* Amber */
             --color-tertiary-dark: #D97706;
-            --color-accent: #3B82F6;
+            --color-accent: #3B82F6; /* Blue */
             --color-accent-dark: #2563EB;
             --color-text-primary: #0F172A;
             --color-text-secondary: #475569;
@@ -32,6 +33,11 @@
             --color-bg-light: #F8FAFC;
             --color-bg-white: #FFFFFF;
             --color-border: #E2E8F0;
+            
+            /* Styles from target list.html adjusted to index.html theme */
+            --target-primary-blue: #0A3762; /* Deep Blue - Used for target headers/borders */
+            --target-secondary-cyan: #14B8A6; /* Teal/Cyan accent - Used for target highlights */
+            --target-dark-gray: #4B5593;
         }
         
         body {
@@ -61,28 +67,6 @@
             transition: all 0.3s ease;
         }
         
-        .card:hover {
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            transform: translateY(-2px);
-        }
-        
-        .card-colored {
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .card-colored::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-            pointer-events: none;
-        }
-        
         .stat-card {
             background: white;
             padding: 2rem;
@@ -92,22 +76,11 @@
             transition: all 0.3s ease;
         }
         
-        .stat-card:hover {
-            border-color: var(--color-primary);
-            box-shadow: 0 8px 30px rgba(79, 70, 229, 0.15);
-            transform: translateY(-4px);
-        }
-        
         .stat-card-highlight {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
             color: white;
             border: none;
             transform: scale(1.05);
-        }
-        
-        .stat-card-highlight:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 40px rgba(79, 70, 229, 0.3);
         }
         
         .pillar-card {
@@ -122,36 +95,12 @@
             flex-direction: column;
         }
         
-        .pillar-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-        }
-        
         .mandate-box {
             background: rgba(0, 0, 0, 0.03);
             border-radius: 0.75rem;
             padding: 1.5rem;
             margin-top: auto;
             border-left: 4px solid;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin: 0.25rem;
-        }
-        
-        .chart-container {
-            position: relative;
-            width: 100%;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         }
         
         .chart-wrapper {
@@ -164,26 +113,6 @@
             margin-bottom: 3rem;
         }
         
-        .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: inherit;
-        }
-        
-        .section-header p {
-            font-size: 1.125rem;
-            color: inherit;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-        
-        .emoji-icon {
-            font-size: 2.5rem;
-            margin-right: 1rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
-        
         .action-item {
             display: flex;
             align-items: flex-start;
@@ -194,48 +123,68 @@
             transition: all 0.3s ease;
         }
         
-        .action-item:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateX(8px);
+        /* CUSTOM STYLES for target list content (blended colors) */
+        
+        .infographic-card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            border-left: 6px solid var(--target-secondary-cyan); /* Teal border */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            background: white;
+            height: 100%;
+        }
+        .infographic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
         }
         
-        .feature-list {
-            list-style: none;
-        }
-        
-        .feature-list li {
-            display: flex;
-            align-items: flex-start;
-            padding: 0.75rem 0;
-            line-height: 1.6;
-        }
-        
-        .checkmark {
-            color: inherit;
-            font-weight: 700;
-            margin-right: 0.75rem;
+        .target-region-header {
+            background-color: var(--target-primary-blue);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem 0.5rem 0 0;
             font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        .new-logos-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) { 
+            .new-logos-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 1280px) { 
+            .new-logos-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        /* Styling for list items in target list sections */
+        .target-list-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+        .target-list-item:last-child {
+            border-bottom: none;
+        }
+        .target-icon-list {
+            color: var(--target-secondary-cyan);
+            margin-right: 0.5rem;
             flex-shrink: 0;
         }
         
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem 0;
-            }
-            
-            .section-header h2 {
-                font-size: 1.875rem;
-            }
-            
-            .chart-wrapper {
-                height: 300px;
-            }
-        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-600 antialiased">
     <div class="container-main py-12 md:py-20">
-        <!-- Header -->
+        
         <header class="text-center mb-16">
             <h1 class="text-5xl md:text-6xl font-black text-slate-900 mb-6">
                 The Path to $70 Million
@@ -245,7 +194,6 @@
             </p>
         </header>
 
-        <!-- Revenue Goals -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             <div class="stat-card text-center">
                 <div class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">2025 Baseline</div>
@@ -266,10 +214,9 @@
             </div>
         </section>
 
-        <!-- Market Context -->
         <section class="card card-colored bg-gradient-to-br from-indigo-600 to-indigo-800 p-8 md:p-12 mb-16">
-            <div class="section-header">
-                <h2 class="text-white">Global Market Context</h2>
+            <div class="section-header text-white">
+                <h2>Global Market Context</h2>
                 <p class="text-white text-xl">
                     Strong industry tailwinds and massive specialized market potential prove the viability of a high-end, services-focused strategy.
                 </p>
@@ -296,7 +243,6 @@
             </div>
         </section>
 
-        <!-- Market Segmentation -->
         <section class="card p-8 md:p-12 mb-16">
             <div class="section-header">
                 <h2>Market Segmentation: High-End Dominance</h2>
@@ -324,7 +270,6 @@
             </div>
         </section>
 
-        <!-- Regional Allocation Chart -->
         <section class="card p-8 md:p-12 mb-16">
             <div class="section-header">
                 <h2>Regional Allocation: The $10M Growth Plan</h2>
@@ -337,7 +282,6 @@
             </div>
         </section>
 
-        <!-- Top Projects Chart -->
         <section class="card p-8 md:p-12 mb-16">
             <div class="section-header">
                 <h2>Top 5 Capital Projects: Biggest Growth Potential</h2>
@@ -350,9 +294,8 @@
             </div>
         </section>
 
-        <!-- Strategic Pillars -->
         <section class="card card-colored bg-gradient-to-br from-slate-800 to-slate-900 p-8 md:p-12 mb-16">
-            <div class="section-header">
+            <div class="section-header text-white">
                 <h2 class="text-white">Strategic Focus: Three Critical Growth Pillars</h2>
                 <p class="text-slate-300">
                     Target compliance-driven capital and regulatory mandates. Lock in long-term contracts by leading with high-value service expertise.
@@ -360,69 +303,57 @@
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Pillar 1 -->
                 <div class="pillar-card" style="border-top-color: var(--color-secondary);">
                     <div class="flex items-center mb-6">
                         <span class="emoji-icon">🔬</span>
                         <h3 class="text-xl" style="color: var(--color-secondary);">CGT Manufacturing</h3>
                     </div>
-                    
                     <div class="mb-6">
                         <div class="font-semibold text-slate-800 mb-2">Opportunity:</div>
                         <p class="text-slate-600">Massive capital investments in new cleanrooms and labs (25-35% CAGR). Need monitoring for GMP compliance from Day 1.</p>
                     </div>
-                    
                     <div class="mb-6">
                         <div class="font-semibold text-slate-800 mb-2">Value Proposition:</div>
                         <p class="text-slate-600">Secure Centron system sale by leading with high-margin <strong class="font-semibold text-slate-900">IQ/OQ/PQ Validation</strong> services.</p>
                     </div>
-                    
                     <div class="mandate-box" style="border-color: var(--color-secondary); background: rgba(16, 185, 129, 0.08);">
                         <div class="font-extrabold text-lg mb-1" style="color: var(--color-secondary);">SALES MANDATE:</div>
                         <div class="font-bold text-slate-800 text-lg">Secure Centron via Validation services</div>
                     </div>
                 </div>
 
-                <!-- Pillar 2 -->
                 <div class="pillar-card" style="border-top-color: var(--color-accent);">
                     <div class="flex items-center mb-6">
                         <span class="emoji-icon">🇪🇺</span>
                         <h3 class="text-xl" style="color: var(--color-accent);">Annex 11 Modernization</h3>
                     </div>
-                    
                     <div class="mb-6">
                         <div class="font-semibold text-slate-800 mb-2">Opportunity:</div>
                         <p class="text-slate-600">New EU regulation forces non-compliant firms to upgrade immediately. Large, forced replacement cycle across Europe.</p>
                     </div>
-                    
                     <div class="mb-6">
                         <div class="font-semibold text-slate-800 mb-2">Value Proposition:</div>
                         <p class="text-slate-600">The <strong class="font-semibold text-slate-900">Cloud EMS Platform</strong> is the compliant, scalable replacement for obsolete legacy systems.</p>
                     </div>
-                    
                     <div class="mandate-box" style="border-color: var(--color-accent); background: rgba(59, 130, 246, 0.08);">
                         <div class="font-extrabold text-lg mb-1" style="color: var(--color-accent);">SALES MANDATE:</div>
                         <div class="font-bold text-slate-800 text-lg">Target Compliance Officers; Displace legacy with Cloud</div>
                     </div>
                 </div>
 
-                <!-- Pillar 3 -->
                 <div class="pillar-card" style="border-top-color: var(--color-tertiary);">
                     <div class="flex items-center mb-6">
                         <span class="emoji-icon">🏥</span>
                         <h3 class="text-xl" style="color: var(--color-tertiary);">Specialized Hospital/Lab</h3>
                     </div>
-                    
                     <div class="mb-6">
                         <div class="font-semibold text-slate-800 mb-2">Opportunity:</div>
                         <p class="text-slate-600">Stricter USP/AABB compliance rules create mandatory, high-frequency service needs in Hospital Pharmacies and Blood Storage.</p>
                     </div>
-                    
                     <div class="mb-6">
                         <div class="font-semibold text-slate-800 mb-2">Value Proposition:</div>
                         <p class="text-slate-600">Automated reporting and specialized service teams reduce audit risk and ensure quarterly compliance.</p>
                     </div>
-                    
                     <div class="mandate-box" style="border-color: var(--color-tertiary); background: rgba(245, 158, 11, 0.08);">
                         <div class="font-extrabold text-lg mb-1" style="color: var(--color-tertiary);">SALES MANDATE:</div>
                         <div class="font-bold text-slate-800 text-lg">Maximize multi-year recurring service revenue</div>
@@ -431,7 +362,6 @@
             </div>
         </section>
 
-        <!-- Product Mapping -->
         <section class="card p-8 md:p-12 mb-16">
             <div class="section-header">
                 <h2>Product-to-Opportunity Mapping</h2>
@@ -443,88 +373,33 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="border-2 border-emerald-500 rounded-xl p-8 bg-gradient-to-br from-emerald-50 to-emerald-100">
                     <h3 class="text-lg font-extrabold text-emerald-600 mb-6">1. CGT Manufacturing</h3>
-                    <ul class="feature-list">
-                        <li>
-                            <span class="checkmark" style="color: var(--color-secondary);">✓</span>
-                            <div>
-                                <strong class="text-slate-900">Validation Services:</strong>
-                                <span class="text-slate-600"> IQ/OQ/PQ Packages (Largest revenue driver)</span>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="checkmark" style="color: var(--color-secondary);">✓</span>
-                            <div>
-                                <strong class="text-slate-900">Centron System:</strong>
-                                <span class="text-slate-600"> High-density sensor deployment</span>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="checkmark" style="color: var(--color-secondary);">✓</span>
-                            <div>
-                                <strong class="text-slate-900">On-site Support:</strong>
-                                <span class="text-slate-600"> Dedicated cleanroom/lab staff</span>
-                            </div>
-                        </li>
+                    <ul class="list-none space-y-3">
+                        <li><span class="text-emerald-600 font-bold mr-2">✓</span><strong class="text-slate-900">Validation Services:</strong><span class="text-slate-600"> IQ/OQ/PQ Packages (Largest revenue driver)</span></li>
+                        <li><span class="text-emerald-600 font-bold mr-2">✓</span><strong class="text-slate-900">Centron System:</strong><span class="text-slate-600"> High-density sensor deployment</span></li>
+                        <li><span class="text-emerald-600 font-bold mr-2">✓</span><strong class="text-slate-900">On-site Support:</strong><span class="text-slate-600"> Dedicated cleanroom/lab staff</span></li>
                     </ul>
                 </div>
 
                 <div class="border-2 border-blue-500 rounded-xl p-8 bg-gradient-to-br from-blue-50 to-blue-100">
                     <h3 class="text-lg font-extrabold text-blue-600 mb-6">2. Annex 11 Modernization</h3>
-                    <ul class="feature-list">
-                        <li>
-                            <span class="checkmark" style="color: var(--color-accent);">✓</span>
-                            <div>
-                                <strong class="text-slate-900">Cloud EMS Platform:</strong>
-                                <span class="text-slate-600"> Direct legacy replacement</span>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="checkmark" style="color: var(--color-accent);">✓</span>
-                            <div>
-                                <strong class="text-slate-900">Part 11 Features:</strong>
-                                <span class="text-slate-600"> Full audit trail & security</span>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="checkmark" style="color: var(--color-accent);">✓</span>
-                            <div>
-                                <strong class="text-slate-900">Global Service:</strong>
-                                <span class="text-slate-600"> EU-based support contracts</span>
-                            </div>
-                        </li>
+                    <ul class="list-none space-y-3">
+                        <li><span class="text-blue-600 font-bold mr-2">✓</span><strong class="text-slate-900">Cloud EMS Platform:</strong><span class="text-slate-600"> Direct legacy replacement</span></li>
+                        <li><span class="text-blue-600 font-bold mr-2">✓</span><strong class="text-slate-900">Part 11 Features:</strong><span class="text-slate-600"> Full audit trail & security</span></li>
+                        <li><span class="text-blue-600 font-bold mr-2">✓</span><strong class="text-slate-900">Global Service:</strong><span class="text-slate-600"> EU-based support contracts</span></li>
                     </ul>
                 </div>
 
                 <div class="border-2 border-amber-500 rounded-xl p-8 bg-gradient-to-br from-amber-50 to-amber-100">
                     <h3 class="text-lg font-extrabold text-amber-600 mb-6">3. Specialized Hospital/Lab</h3>
-                    <ul class="feature-list">
-                        <li>
-                            <span class="checkmark" style="color: var(--color-tertiary);">✓</span>
-                            <div>
-                                <strong class="text-slate-900">Recurring Contracts:</strong>
-                                <span class="text-slate-600"> Guaranteed annual revenue</span>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="checkmark" style="color: var(--color-tertiary);">✓</span>
-                            <div>
-                                <strong class="text-slate-900">Automated Reporting:</strong>
-                                <span class="text-slate-600"> USP/AABB compliant logs</span>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="checkmark" style="color: var(--color-tertiary);">✓</span>
-                            <div>
-                                <strong class="text-slate-900">Centron Deployment:</strong>
-                                <span class="text-slate-600"> Cost-effective remote monitoring</span>
-                            </div>
-                        </li>
+                    <ul class="list-none space-y-3">
+                        <li><span class="text-amber-600 font-bold mr-2">✓</span><strong class="text-slate-900">Recurring Contracts:</strong><span class="text-slate-600"> Guaranteed annual revenue</span></li>
+                        <li><span class="text-amber-600 font-bold mr-2">✓</span><strong class="text-slate-900">Automated Reporting:</strong><span class="text-slate-600"> USP/AABB compliant logs</span></li>
+                        <li><span class="text-amber-600 font-bold mr-2">✓</span><strong class="text-slate-900">Centron Deployment:</strong><span class="text-slate-600"> Cost-effective remote monitoring</span></li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Competitive + Actions -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
             <div class="card p-8 md:p-12">
                 <h2 class="text-center mb-4">Competitive Positioning</h2>
@@ -567,9 +442,268 @@
                 </div>
             </div>
         </section>
-    </div>
+        
+        <hr class="my-16 border-t-4 border-indigo-400">
+        
+        <header class="max-w-7xl mx-auto mb-10 p-6 bg-white rounded-xl shadow-lg">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+                        Detailed HLS Target Plan
+                    </h2>
+                    <p class="text-lg text-gray-600 mt-1">
+                        Prioritizing High-Value, Quick-Win Lab Targets for 2026
+                    </p>
+                </div>
+            </div>
+            <hr class="mt-4 border-t-2 border-target-secondary-cyan">
+        </header>
+
+        <section class="max-w-7xl mx-auto mb-16">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b-2 border-target-secondary-cyan pb-2">
+                Top 6 Near-Term Opportunities (Lab, Pharmacy, & CGT Focus)
+            </h2>
+            <p class="text-gray-600 mb-4 text-base font-semibold italic">
+                Focus shifted to mid-size, high-spec lab builds (sub-\$1B) that offer faster sales cycles and immediate fit for high-end Rees monitoring and service needs.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="cross"></span>
+                        1. CCHMC Liberty Campus
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Butler County, OH | <span class="text-target-secondary-cyan">~$365M</span> Expansion</p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: Major **Lab/Pharmacy/Sterile Processing** build-out.</li>
+                        <li>Element: **USP 797/800 compliance** opportunity.</li>
+                        <li>Value: Immediate hospital fit for lab and pharmacy monitoring (quick win).</li>
+                    </ul>
+                </div>
+
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="radio-tower"></span>
+                        2. Novartis Radioligand Mfg
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Carlsbad, CA | <span class="text-target-secondary-cyan">Specialized Niche</span></p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: Highly specialized **cGMP labs** and manufacturing.</li>
+                        <li>Element: Extreme precision validation and high-end monitoring needed.</li>
+                        <li>Value: High-value niche win that reinforces Rees's high-end focus.</li>
+                    </ul>
+                </div>
+                
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="vial"></span>
+                        3. Dana‑Farber Mfg Labs
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Boston, MA | <span class="text-target-secondary-cyan">Targeted Lab Scope</span></p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: Dedicated **manufacturing labs / clean-rooms** component.</li>
+                        <li>Element: **CGT clean-room** monitoring and validation.</li>
+                        <li>Value: Premium client in key region; targeting the *lab* part for rapid entry.</li>
+                    </ul>
+                </div>
+
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="building"></span>
+                        4. The Pearl Innovation District
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Charlotte, NC | <span class="text-target-secondary-cyan">High-Density Labs</span></p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: New life-sciences **research buildings** with multiple tenants.</li>
+                        <li>Element: High volume of smaller **individual lab environments**.</li>
+                        <li>Value: Excellent way to land multiple new logos in a strong, growing region (NC).</li>
+                    </ul>
+                </div>
+
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="graduation-cap"></span>
+                        5. U of Oklahoma Life-Sci
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Norman, OK | <span class="text-target-secondary-cyan">Multiple New Builds</span></p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: **Research labs** and university infrastructure expansion.</li>
+                        <li>Element: Academic lab automation & monitoring (low competitive resistance).</li>
+                        <li>Value: Academic wins are often quick, creating reference sites and driving service brand.</li>
+                    </ul>
+                </div>
+                
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="microscope"></span>
+                        6. NIH SRLM Laboratory Wing
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Bethesda, MD (Federal) | <span class="text-target-secondary-cyan">Lab Focus</span></p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: New **Laboratory Medicine & Research Labs** in major hospital context.</li>
+                        <li>Element: High-spec **research labs** in a compliance-heavy federal setting.</li>
+                        <li>Value: Direct, high-end lab opportunity within the priority ARC-NIH region.</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </section>
+        
+        
+        <section class="max-w-7xl mx-auto mb-12">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b-2 border-target-primary-blue pb-2">
+                Top New Logo Targets by Region (Balanced HLS Focus)
+            </h2>
+
+            <div class="new-logos-grid">
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">1️⃣ Northeast Region</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-1 text-sm text-target-dark-gray">
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>NYU Langone Health – NY (Academic/CGT Focus)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Moderna – Laval mRNA Vaccine Facility – QC, Canada</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Bristol-Myers Squibb – Dev. & Mfg sites (NJ/MA)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Hackensack Meridian Health – NJ</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>NYC Health + Hospitals – NY (Pharmacy/Compliance)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>UPMC – PA (Regional Hospital Network)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>CRISPR Therapeutics – Boston/MA CGT Labs</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Yale New Haven Health – CT</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Regeneron Pharmaceuticals – NY R&D Campus</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Northwell Health – NY</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">2️⃣ Southern Region</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-1 text-sm text-target-dark-gray">
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Eli Lilly and Company – Houston biomanufacturing campus – TX</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Genentech – Holly Springs manufacturing site – NC</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Amgen – North Carolina biologics plant – NC</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Texas Medical Center (system-level, non-client entities) – TX</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Houston Methodist – TX (Major Research Center)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Texas Children’s Hospital – TX (Pediatric Research)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Kite Pharma (Gilead) – Frederick, MD (CGT Mfg)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Atrium Health – NC/GA</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Baptist Health South Florida – FL</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Catalent – NC/FL CDMO Sites (cGMP Focus)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">3️⃣ SW Central Region</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-1 text-sm text-target-dark-gray">
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Amgen – Ohio biomanufacturing facility – OH</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Ohio State University Wexner Medical Center – OH</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Nationwide Children’s Hospital – OH (CGT Trials)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>University of Michigan Health – MI</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>AbbVie – North Chicago R&D Campus – IL</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Corewell Health – MI</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>SSM Health – MO</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Bayer U.S. – Animal Health R&D/Mfg (KS)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Banner Health – AZ</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>University of Colorado Anschutz Medical Campus – CO</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">4️⃣ West Region</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-1 text-sm text-target-dark-gray">
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Gilead Sciences – Foster City campus expansion – CA</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Amgen – California manufacturing/R&D sites – CA</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Seattle Genetics (Seagen/Pfizer) – WA R&D/Mfg</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>UW Medicine – WA (Academic Research)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Cedars-Sinai Medical Center – CA</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Illumina – San Diego R&D/Genomics (Automation focus)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>San Diego State University – new LS/STEM builds – CA</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Seattle Children’s Hospital – WA (Biorepositories)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Bristol-Myers Squibb – Redwood City/CA CGT Sites</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Fred Hutchinson Cancer Center – WA</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">5️⃣ Europe Region</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-1 text-sm text-target-dark-gray">
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Novo Nordisk – Athlone / GLP-1 related investments – IE</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Cell and Gene Therapy Catapult – manufacturing centres (e.g., Stevenage) – UK</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Ardena – expanded bioanalytical/CDMO footprint – NL/SE</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Charité – Universitätsmedizin Berlin – DE</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>AstraZeneca – Cambridge R&D campus – UK</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Lonza – Drug Product/Biologics Sites (CH/IE)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Boston Scientific – Galway operations – IE (Med Device/Cleanroom)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>AGC Pharma Chemicals Europe – Barcelona HPAPI expansion – ES</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Berlin Institute of Health – DE</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>GE Healthcare – Cork contrast media site – IE</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">6️⃣ Federal / National Targets</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-3 text-sm text-target-dark-gray">
+                            <li>
+                                <div class="text-target-primary-blue font-bold mb-1">NIH Modernization (Bethesda, MD Focus)</div>
+                                <div class="flex items-start">
+                                    <span class="target-icon-list mt-1" data-lucide="check-circle"></span>
+                                    <div class="ml-1">\$1.7B SRLM Wing (547k sq-ft) & 341k sq-ft of cGMP/BSL-3 lab renovations (Bldg 10 & 29B) through 2029.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="text-target-primary-blue font-bold mt-3 mb-1">ARC (American Red Cross) National Upgrades</div>
+                                <div class="flex items-start">
+                                    <span class="target-icon-list mt-1" data-lucide="check-circle"></span>
+                                    <div class="ml-1">New regional HQs (TX, ME, WA) consolidating blood donation/disaster ops with major cold-chain/storage upgrades.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="text-target-primary-blue font-bold mt-3 mb-1">Strategic Value</div>
+                                <div class="flex items-start">
+                                    <span class="target-icon-list mt-1" data-lucide="check-circle"></span>
+                                    <div class="ml-1">Long-term federal contracts driven by public health/research modernization and critical environment control needs.</div>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="target-icon-list mt-1" data-lucide="check-circle"></span>
+                                    <div class="ml-1">Driven by AABB quarterly alarm testing and USP enforcement.</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <footer class="max-w-7xl mx-auto mt-10 p-6 bg-gradient-to-br from-indigo-700 to-indigo-900 rounded-xl shadow-lg text-white">
+            <h3 class="text-xl font-bold border-b pb-2 border-amber-400">Strategic Summary (Target List Focus)</h3>
+            <p class="mt-3 text-base opacity-95">
+                This document outlines a clear two-part strategy for growth, prioritizing **quick, profitable wins** in our sweet spot:
+            </p>
+            <ul class="list-disc list-inside mt-2 space-y-1 text-sm opacity-90 pl-4">
+                <li>Near-Term Wins: Focus sales on high-spec, compliance-driven lab and pharmacy expansions (e.g., CCHMC, Novartis, Innovation Districts) where Rees can deploy monitoring and service faster.</li>
+                <li>Federal Win: Prioritize the Federal/National Targets (ARC - NIH) to capture the long-cycle federal budget for hospital modernization and blood center regulatory compliance (AABB, cGMP).</li>
+                <li>Broad Coverage: Drive new logo acquisition using the highly targeted Regional Lists, balanced between large compliance-driven Hospital Networks and high-value Biotech/Pharma manufacturing and R&D centers.</li>
+            </ul>
+            <p class="mt-4 text-xs text-gray-300">
+                *Note: While massive capital projects like Merck and Lilly are still observed, they are no longer primary 2026 revenue drivers; rather, they serve as long-term reference targets.*
+            </p>
+        </footer>
+        
+        </div>
 
     <script>
+        // CHART JAVASCRIPT from index.html
         const colors = {
             primary: '#4F46E5',
             secondary: '#10B981',
@@ -813,6 +947,9 @@
         } else {
             window.addEventListener('load', initCharts);
         }
+        
+        // Initialize Lucide Icons for the Target List section
+        lucide.createIcons();
     </script>
 </body>
 </html>
