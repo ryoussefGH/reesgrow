@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rees Scientific: 2026-2027 Strategic Growth and Target Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script> <style>
+        /* BASE STYLES from index.html */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --color-primary: #4F46E5; /* Indigo */
+            --color-primary-dark: #4338CA;
+            --color-primary-light: #6366F1;
+            --color-secondary: #10B981; /* Emerald */
+            --color-secondary-dark: #059669;
+            --color-tertiary: #F59E0B; /* Amber */
+            --color-tertiary-dark: #D97706;
+            --color-accent: #3B82F6; /* Blue */
+            --color-accent-dark: #2563EB;
+            --color-text-primary: #0F172A;
+            --color-text-secondary: #475569;
+            --color-text-muted: #64748B;
+            --color-bg-light: #F8FAFC;
+            --color-bg-white: #FFFFFF;
+            --color-border: #E2E8F0;
+            
+            /* Styles from target list.html adjusted to index.html theme */
+            --target-primary-blue: #0A3762; /* Deep Blue - Used for target headers/borders */
+            --target-secondary-cyan: #14B8A6; /* Teal/Cyan accent - Used for target highlights */
+            --target-dark-gray: #4B5593;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--color-bg-light);
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 800;
+            color: var(--color-text-primary);
+            letter-spacing: -0.025em;
+        }
+        
+        .container-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .card {
+            background: var(--color-bg-white);
+            border-radius: 1rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card-highlight {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: white;
+            border: none;
+            transform: scale(1.05);
+        }
+        
+        .pillar-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mandate-box {
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: auto;
+            border-left: 4px solid;
+        }
+        
+        .chart-wrapper {
+            height: 400px;
+            max-width: 100%;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .action-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        /* CUSTOM STYLES for target list content (blended colors) */
+        
+        .infographic-card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            border-left: 6px solid var(--target-secondary-cyan); /* Teal border */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            background: white;
+            height: 100%;
+        }
+        .infographic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .target-region-header {
+            background-color: var(--target-primary-blue);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        .new-logos-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) { 
+            .new-logos-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 1280px) { 
+            .new-logos-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        /* Styling for list items in target list sections */
+        .target-list-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+        .target-list-item:last-child {
+            border-bottom: none;
+        }
+        .target-icon-list {
+            color: var(--target-secondary-cyan);
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Custom styles from index2.html for aesthetic enhancements */
+        .card:hover {
+            transform: translateY(-2px);
+        }
+        .tier-1-bg { background-color: #EF4444; } /* Red 500 */
+        .tier-2-bg { background-color: #FBBF24; } /* Amber 400 */
+        .tier-3-bg { background-color: #3B82F6; } /* Blue 500 */
+        .badge-color-aav { background-color: #9333ea; color: white; } /* Violet 600 */
+        .badge-color-cell { background-color: #10b981; color: white; } /* Emerald 500 */
+        .badge-color-mrna { background-color: #f97316; color: white; } /* Orange 500 */
+        .badge-color-adc { background-color: #06b6d4; color: white; } /* Cyan 500 */
+        
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-600 antialiased">
+    <div class="container-main py-12 md:py-20">
+        
+        <header class="text-center mb-16">
+            <h1 class="text-5xl md:text-6xl font-black text-slate-900 mb-6">
+                The Path to $70 Million
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+                A Strategic Sales View: Leveraging regulatory tailwinds and high-value capital investment to achieve <strong class="font-bold text-amber-400">+$10M growth</strong> in the compliance-driven market.
+            </p>
+        </header>
+
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div class="stat-card text-center">
+                <div class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">2025 Baseline</div>
+                <div class="text-6xl font-black text-slate-800 mb-2">$60M</div>
+                <div class="text-sm text-slate-500">Current Annual Revenue</div>
+            </div>
+            
+            <div class="stat-card stat-card-highlight text-center">
+                <div class="text-sm font-semibold uppercase tracking-wider mb-2 opacity-90">Targeted Increase</div>
+                <div class="text-6xl font-black mb-2">+$10M</div>
+                <div class="text-sm opacity-90">2026-2027 Strategic Growth</div>
+            </div>
+            
+            <div class="stat-card text-center">
+                <div class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">2027 Goal</div>
+                <div class="text-6xl font-black text-slate-800 mb-2">$70M</div>
+                <div class="text-sm text-slate-500">New Revenue Target</div>
+            </div>
+        </section>
+
+        <section class="card card-colored bg-gradient-to-br from-indigo-600 to-indigo-800 p-8 md:p-12 mb-16">
+            <div class="section-header text-white">
+                <h2>Global Market Context</h2>
+                <p class="text-white text-xl">
+                    Strong industry tailwinds and massive specialized market potential prove the viability of a high-end, services-focused strategy.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
+                <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm">
+                    <div class="text-5xl font-black text-amber-300 mb-2">$7-9B</div>
+                    <div class="text-lg font-bold mb-1 text-indigo-50">Global TAM (2025)</div>
+                    <div class="text-sm text-indigo-200">Total Addressable Cold Chain Market</div>
+                </div>
+                
+                <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm">
+                    <div class="text-5xl font-black text-amber-300 mb-2">12-14%</div>
+                    <div class="text-lg font-bold mb-1 text-indigo-50">Projected CAGR</div>
+                    <div class="text-sm text-indigo-200">Market growth through 2030</div>
+                </div>
+                
+                <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm">
+                    <div class="text-5xl font-black text-emerald-400 mb-2">$1.4-2B</div>
+                    <div class="text-lg font-bold mb-1 text-indigo-50">Services TAM</div>
+                    <div class="text-sm text-indigo-200">Validation, Mapping, Calibration</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-12 mb-16">
+            <div class="section-header">
+                <h2>Market Segmentation: High-End Dominance</h2>
+                <p>
+                    Our focus on the compliance-driven market captures the highest value. The high-end segment represents the majority of industry revenue despite lower unit volume.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="flex items-center p-8 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl border-l-4 border-indigo-500">
+                    <div class="text-6xl font-black text-indigo-600 min-w-[120px]">80%</div>
+                    <div class="ml-6">
+                        <div class="text-xl font-bold text-slate-800 mb-1">High-End Market Value</div>
+                        <div class="text-slate-600">Revenue concentrated at <strong class="font-semibold text-slate-800">$1,000–$1,500+</strong> per monitoring point</div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-8 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl border-l-4 border-emerald-500">
+                    <div class="text-6xl font-black text-emerald-600 min-w-[120px]">20%</div>
+                    <div class="ml-6">
+                        <div class="text-xl font-bold text-slate-800 mb-1">Low-End Market Value</div>
+                        <div class="text-slate-600">Commodity sales at <strong class="font-semibold text-slate-800">$100</strong> per point — we avoid this segment</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-12 mb-16">
+            <div class="section-header">
+                <h2>Regional Allocation: The $10M Growth Plan</h2>
+                <p>
+                    Growth strategically funneled into high-potential regions with the strongest mix of regulatory and CGT investment.
+                </p>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-12 mb-16">
+            <div class="section-header">
+                <h2>Top 5 Capital Projects: Biggest Growth Potential</h2>
+                <p>
+                    Prioritize engagement with these confirmed multi-billion dollar capital investments offering massive scope in cleanroom validation and high-end monitoring services.
+                </p>
+            </div>
+            <div class="chart-wrapper h-[500px]">
+                <canvas id="megaProjectChart"></canvas>
+            </div>
+        </section>
+
+        <section class="card card-colored bg-gradient-to-br from-slate-800 to-slate-900 p-8 md:p-12 mb-16">
+            <div class="section-header text-white">
+                <h2 class="text-white">Strategic Focus: Three Critical Growth Pillars</h2>
+                <p class="text-slate-300">
+                    Target compliance-driven capital and regulatory mandates. Lock in long-term contracts by leading with high-value service expertise.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="pillar-card" style="border-top-color: var(--color-secondary);">
+                    <div class="flex items-center mb-6">
+                        <span class="emoji-icon">🔬</span>
+                        <h3 class="text-xl" style="color: var(--color-secondary);">CGT Manufacturing</h3>
+                    </div>
+                    <div class="mb-6">
+                        <div class="font-semibold text-slate-800 mb-2">Opportunity:</div>
+                        <p class="text-slate-600">Massive capital investments in new cleanrooms and labs (25-35% CAGR). Need monitoring for GMP compliance from Day 1.</p>
+                    </div>
+                    <div class="mb-6">
+                        <div class="font-semibold text-slate-800 mb-2">Value Proposition:</div>
+                        <p class="text-slate-600">Secure Centron system sale by leading with high-margin <strong class="font-semibold text-slate-900">IQ/OQ/PQ Validation</strong> services.</p>
+                    </div>
+                    <div class="mandate-box" style="border-color: var(--color-secondary); background: rgba(16, 185, 129, 0.08);">
+                        <div class="font-extrabold text-lg mb-1" style="color: var(--color-secondary);">SALES MANDATE:</div>
+                        <div class="font-bold text-slate-800 text-lg">Secure Centron via Validation services</div>
+                    </div>
+                </div>
+
+                <div class="pillar-card" style="border-top-color: var(--color-accent);">
+                    <div class="flex items-center mb-6">
+                        <span class="emoji-icon">🇪🇺</span>
+                        <h3 class="text-xl" style="color: var(--color-accent);">Annex 11 Modernization</h3>
+                    </div>
+                    <div class="mb-6">
+                        <div class="font-semibold text-slate-800 mb-2">Opportunity:</div>
+                        <p class="text-slate-600">New EU regulation forces non-compliant firms to upgrade immediately. Large, forced replacement cycle across Europe.</p>
+                    </div>
+                    <div class="mb-6">
+                        <div class="font-semibold text-slate-800 mb-2">Value Proposition:</div>
+                        <p class="text-slate-600">The <strong class="font-semibold text-slate-900">Cloud EMS Platform</strong> is the compliant, scalable replacement for obsolete legacy systems.</p>
+                    </div>
+                    <div class="mandate-box" style="border-color: var(--color-accent); background: rgba(59, 130, 246, 0.08);">
+                        <div class="font-extrabold text-lg mb-1" style="color: var(--color-accent);">SALES MANDATE:</div>
+                        <div class="font-bold text-slate-800 text-lg">Target Compliance Officers; Displace legacy with Cloud</div>
+                    </div>
+                </div>
+
+                <div class="pillar-card" style="border-top-color: var(--color-tertiary);">
+                    <div class="flex items-center mb-6">
+                        <span class="emoji-icon">🏥</span>
+                        <h3 class="text-xl" style="color: var(--color-tertiary);">Specialized Hospital/Lab</h3>
+                    </div>
+                    <div class="mb-6">
+                        <div class="font-semibold text-slate-800 mb-2">Opportunity:</div>
+                        <p class="text-slate-600">Stricter USP/AABB compliance rules create mandatory, high-frequency service needs in Hospital Pharmacies and Blood Storage.</p>
+                    </div>
+                    <div class="mb-6">
+                        <div class="font-semibold text-slate-800 mb-2">Value Proposition:</div>
+                        <p class="text-slate-600">Automated reporting and specialized service teams reduce audit risk and ensure quarterly compliance.</p>
+                    </div>
+                    <div class="mandate-box" style="border-color: var(--color-tertiary); background: rgba(245, 158, 11, 0.08);">
+                        <div class="font-extrabold text-lg mb-1" style="color: var(--color-tertiary);">SALES MANDATE:</div>
+                        <div class="font-bold text-slate-800 text-lg">Maximize multi-year recurring service revenue</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-12 mb-16">
+            <div class="section-header">
+                <h2>Product-to-Opportunity Mapping</h2>
+                <p>
+                    Our products and services are perfectly aligned to capture specific needs within each high-growth niche.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="border-2 border-emerald-500 rounded-xl p-8 bg-gradient-to-br from-emerald-50 to-emerald-100">
+                    <h3 class="text-lg font-extrabold text-emerald-600 mb-6">1. CGT Manufacturing</h3>
+                    <ul class="list-none space-y-3">
+                        <li><span class="text-emerald-600 font-bold mr-2">✓</span><strong class="text-slate-900">Validation Services:</strong><span class="text-slate-600"> IQ/OQ/PQ Packages (Largest revenue driver)</span></li>
+                        <li><span class="text-emerald-600 font-bold mr-2">✓</span><strong class="text-slate-900">Centron System:</strong><span class="text-slate-600"> High-density sensor deployment</span></li>
+                        <li><span class="text-emerald-600 font-bold mr-2">✓</span><strong class="text-slate-900">On-site Support:</strong><span class="text-slate-600"> Dedicated cleanroom/lab staff</span></li>
+                    </ul>
+                </div>
+
+                <div class="border-2 border-blue-500 rounded-xl p-8 bg-gradient-to-br from-blue-50 to-blue-100">
+                    <h3 class="text-lg font-extrabold text-blue-600 mb-6">2. Annex 11 Modernization</h3>
+                    <ul class="list-none space-y-3">
+                        <li><span class="text-blue-600 font-bold mr-2">✓</span><strong class="text-slate-900">Cloud EMS Platform:</strong><span class="text-slate-600"> Direct legacy replacement</span></li>
+                        <li><span class="text-blue-600 font-bold mr-2">✓</span><strong class="text-slate-900">Part 11 Features:</strong><span class="text-slate-600"> Full audit trail & security</span></li>
+                        <li><span class="text-blue-600 font-bold mr-2">✓</span><strong class="text-slate-900">Global Service:</strong><span class="text-slate-600"> EU-based support contracts</span></li>
+                    </ul>
+                </div>
+
+                <div class="border-2 border-amber-500 rounded-xl p-8 bg-gradient-to-br from-amber-50 to-amber-100">
+                    <h3 class="text-lg font-extrabold text-amber-600 mb-6">3. Specialized Hospital/Lab</h3>
+                    <ul class="list-none space-y-3">
+                        <li><span class="text-amber-600 font-bold mr-2">✓</span><strong class="text-slate-900">Recurring Contracts:</strong><span class="text-slate-600"> Guaranteed annual revenue</span></li>
+                        <li><span class="text-amber-600 font-bold mr-2">✓</span><strong class="text-slate-900">Automated Reporting:</strong><span class="text-slate-600"> USP/AABB compliant logs</span></li>
+                        <li><span class="text-amber-600 font-bold mr-2">✓</span><strong class="text-slate-900">Centron Deployment:</strong><span class="text-slate-600"> Cost-effective remote monitoring</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            <div class="card p-8 md:p-12">
+                <h2 class="text-center mb-4">Competitive Positioning</h2>
+                <p class="text-center text-slate-600 mb-8">
+                    We differentiate through superior service and regulatory expertise, competing with peers like <strong class="font-semibold text-slate-800">Vaisala</strong> and <strong class="font-semibold text-slate-800">XiltriX</strong>.
+                </p>
+                <div class="chart-wrapper h-[450px]">
+                    <canvas id="competitiveChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card card-colored bg-gradient-to-br from-indigo-600 to-indigo-800 p-8 md:p-12">
+                <h2 class="text-center text-white mb-4">Actionable Next Steps</h2>
+                <p class="text-center text-white/95 mb-8 text-lg">
+                    To execute the $70M goal, sales leadership recommends:
+                </p>
+                
+                <div class="action-item">
+                    <span class="text-5xl mr-6 shrink-0">👥</span>
+                    <div>
+                        <div class="font-bold text-xl mb-1 text-white">Immediate AE Hire</div>
+                        <div class="text-white/95">Focus on <strong class="font-semibold text-amber-300">Boston/MA</strong> and <strong class="font-semibold text-amber-300">California</strong> to capture high-value project pipeline.</div>
+                    </div>
+                </div>
+                
+                <div class="action-item">
+                    <span class="text-5xl mr-6 shrink-0">🛠️</span>
+                    <div>
+                        <div class="font-bold text-xl mb-1 text-white">Bundle Service Contracts</div>
+                        <div class="text-white/95">Ensure all capital equipment bids include IQ/OQ/PQ and multi-year calibration contracts.</div>
+                    </div>
+                </div>
+                
+                <div class="action-item">
+                    <span class="text-5xl mr-6 shrink-0">💻</span>
+                    <div>
+                        <div class="font-bold text-xl mb-1 text-white">Regulatory Push</div>
+                        <div class="text-white/95">Launch targeted campaigns in Europe and hospital systems promoting compliance migration paths.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="my-16 border-t-4 border-indigo-400">
+        
+        <header class="max-w-7xl mx-auto mb-10 p-6 bg-white rounded-xl shadow-lg">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+                        Detailed HLS Target Plan
+                    </h2>
+                    <p class="text-lg text-gray-600 mt-1">
+                        Prioritizing High-Value, Quick-Win Lab Targets for 2026
+                    </p>
+                </div>
+            </div>
+            <hr class="mt-4 border-t-2 border-target-secondary-cyan">
+        </header>
+
+        <section class="max-w-7xl mx-auto mb-16">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b-2 border-target-secondary-cyan pb-2">
+                Top 6 Near-Term Opportunities (Lab, Pharmacy, & CGT Focus)
+            </h2>
+            <p class="text-gray-600 mb-4 text-base font-semibold italic">
+                Focus shifted to mid-size, high-spec lab builds (sub-\$1B) that offer faster sales cycles and immediate fit for high-end Rees monitoring and service needs.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="cross"></span>
+                        1. CCHMC Liberty Campus
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Butler County, OH | <span class="text-target-secondary-cyan">~$365M</span> Expansion</p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: Major Lab/Pharmacy/Sterile Processing build-out.</li>
+                        <li>Element: USP 797/800 compliance opportunity.</li>
+                        <li>Value: Immediate hospital fit for lab and pharmacy monitoring (quick win).</li>
+                    </ul>
+                </div>
+
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="radio-tower"></span>
+                        2. Novartis Radioligand Mfg
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Carlsbad, CA | <span class="text-target-secondary-cyan">Specialized Niche</span></p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: Highly specialized cGMP labs and manufacturing.</li>
+                        <li>Element: Extreme precision validation and high-end monitoring needed.</li>
+                        <li>Value: High-value niche win that reinforces Rees's high-end focus.</li>
+                    </ul>
+                </div>
+                
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="vial"></span>
+                        3. Dana‑Farber Mfg Labs
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Boston, MA | <span class="text-target-secondary-cyan">Targeted Lab Scope</span></p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: Dedicated manufacturing labs / clean-rooms component.</li>
+                        <li>Element: CGT clean-room monitoring and validation.</li>
+                        <li>Value: Premium client in key region; targeting the *lab* part for rapid entry.</li>
+                    </ul>
+                </div>
+
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="building"></span>
+                        4. The Pearl Innovation District
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Charlotte, NC | <span class="text-target-secondary-cyan">High-Density Labs</span></p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: New life-sciences research buildings with multiple tenants.</li>
+                        <li>Element: High volume of smaller individual lab environments.</li>
+                        <li>Value: Excellent way to land multiple new logos in a strong, growing region (NC).</li>
+                    </ul>
+                </div>
+
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="graduation-cap"></span>
+                        5. U of Oklahoma Life-Sci
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Norman, OK | <span class="text-target-secondary-cyan">Multiple New Builds</span></p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: Research labs and university infrastructure expansion.</li>
+                        <li>Element: Academic lab automation & monitoring (low competitive resistance).</li>
+                        <li>Value: Academic wins are often quick, creating reference sites and driving service brand.</li>
+                    </ul>
+                </div>
+                
+                <div class="infographic-card bg-white">
+                    <h3 class="text-lg font-bold text-target-primary-blue flex items-center mb-2">
+                        <span class="target-icon-list" data-lucide="microscope"></span>
+                        6. NIH SRLM Laboratory Wing
+                    </h3>
+                    <p class="text-sm text-gray-700 font-semibold">Bethesda, MD (Federal) | <span class="text-target-secondary-cyan">Lab Focus</span></p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                        <li>Focus: New Laboratory Medicine & Research Labs in major hospital context.</li>
+                        <li>Element: High-spec research labs in a compliance-heavy federal setting.</li>
+                        <li>Value: Direct, high-end lab opportunity within the priority ARC-NIH region.</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </section>
+        
+        
+        <section class="max-w-7xl mx-auto mb-12">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b-2 border-target-primary-blue pb-2">
+                Top New Logo Targets by Region (Balanced HLS Focus)
+            </h2>
+
+            <div class="new-logos-grid">
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">1️⃣ Northeast Region</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-1 text-sm text-target-dark-gray">
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>NYU Langone Health – NY (Academic/CGT Focus)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Moderna – Laval mRNA Vaccine Facility – QC, Canada</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Bristol-Myers Squibb – Dev. & Mfg sites (NJ/MA)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Hackensack Meridian Health – NJ</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>NYC Health + Hospitals – NY (Pharmacy/Compliance)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>UPMC – PA (Regional Hospital Network)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>CRISPR Therapeutics – Boston/MA CGT Labs</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Yale New Haven Health – CT</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Regeneron Pharmaceuticals – NY R&D Campus</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Northwell Health – NY</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">2️⃣ Southern Region</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-1 text-sm text-target-dark-gray">
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Eli Lilly and Company – Houston biomanufacturing campus – TX</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Genentech – Holly Springs manufacturing site – NC</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Amgen – North Carolina biologics plant – NC</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Texas Medical Center (system-level, non-client entities) – TX</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Houston Methodist – TX (Major Research Center)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Texas Children’s Hospital – TX (Pediatric Research)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Kite Pharma (Gilead) – Frederick, MD (CGT Mfg)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Atrium Health – NC/GA</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Baptist Health South Florida – FL</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Catalent – NC/FL CDMO Sites (cGMP Focus)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">3️⃣ SW Central Region</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-1 text-sm text-target-dark-gray">
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Amgen – Ohio biomanufacturing facility – OH</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Ohio State University Wexner Medical Center – OH</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Nationwide Children’s Hospital – OH (CGT Trials)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>University of Michigan Health – MI</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>AbbVie – North Chicago R&D Campus – IL</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Corewell Health – MI</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>SSM Health – MO</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Bayer U.S. – Animal Health R&D/Mfg (KS)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Banner Health – AZ</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>University of Colorado Anschutz Medical Campus – CO</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">4️⃣ West Region</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-1 text-sm text-target-dark-gray">
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Gilead Sciences – Foster City campus expansion – CA</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Amgen – California manufacturing/R&D sites – CA</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Seattle Genetics (Seagen/Pfizer) – WA R&D/Mfg</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>UW Medicine – WA (Academic Research)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Cedars-Sinai Medical Center – CA</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Illumina – San Diego R&D/Genomics (Automation focus)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>San Diego State University – new LS/STEM builds – CA</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Seattle Children’s Hospital – WA (Biorepositories)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Bristol-Myers Squibb – Redwood City/CA CGT Sites</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Fred Hutchinson Cancer Center – WA</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">5️⃣ Europe Region</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-1 text-sm text-target-dark-gray">
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Novo Nordisk – Athlone / GLP-1 related investments – IE</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Cell and Gene Therapy Catapult – manufacturing centres (e.g., Stevenage) – UK</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Ardena – expanded bioanalytical/CDMO footprint – NL/SE</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Charité – Universitätsmedizin Berlin – DE</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>AstraZeneca – Cambridge R&D campus – UK</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>Lonza – Drug Product/Biologics Sites (CH/IE)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Boston Scientific – Galway operations – IE (Med Device/Cleanroom)</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>AGC Pharma Chemicals Europe – Barcelona HPAPI expansion – ES</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="chevron-right"></span>Berlin Institute of Health – DE</li>
+                            <li class="target-list-item"><span class="target-icon-list" data-lucide="flask-conical"></span>GE Healthcare – Cork contrast media site – IE</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <div class="target-region-header">6️⃣ Federal / National Targets</div>
+                    <div class="p-4 bg-white">
+                        <ul class="space-y-3 text-sm text-target-dark-gray">
+                            <li>
+                                <div class="text-target-primary-blue font-bold mb-1">NIH Modernization (Bethesda, MD Focus)</div>
+                                <div class="flex items-start">
+                                    <span class="target-icon-list mt-1" data-lucide="check-circle"></span>
+                                    <div class="ml-1">\$1.7B SRLM Wing (547k sq-ft) & 341k sq-ft of cGMP/BSL-3 lab renovations (Bldg 10 & 29B) through 2029.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="text-target-primary-blue font-bold mt-3 mb-1">ARC (American Red Cross) National Upgrades</div>
+                                <div class="flex items-start">
+                                    <span class="target-icon-list mt-1" data-lucide="check-circle"></span>
+                                    <div class="ml-1">New regional HQs (TX, ME, WA) consolidating blood donation/disaster ops with major cold-chain/storage upgrades.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="text-target-primary-blue font-bold mt-3 mb-1">Strategic Value</div>
+                                <div class="flex items-start">
+                                    <span class="target-icon-list mt-1" data-lucide="check-circle"></span>
+                                    <div class="ml-1">Long-term federal contracts driven by public health/research modernization and critical environment control needs.</div>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="target-icon-list mt-1" data-lucide="check-circle"></span>
+                                    <div class="ml-1">Driven by AABB quarterly alarm testing and USP enforcement.</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <footer class="max-w-7xl mx-auto mt-10 p-6 bg-gradient-to-br from-indigo-700 to-indigo-900 rounded-xl shadow-lg text-white">
+            <h3 class="text-xl font-bold border-b pb-2 border-amber-400">Strategic Summary (Target List Focus)</h3>
+            <p class="mt-3 text-base opacity-95">
+                This document outlines a clear two-part strategy for growth, prioritizing quick, profitable wins in our sweet spot:
+            </p>
+            <ul class="list-disc list-inside mt-2 space-y-1 text-sm opacity-90 pl-4">
+                <li>Near-Term Wins: Focus sales on high-spec, compliance-driven lab and pharmacy expansions (e.g., CCHMC, Novartis, Innovation Districts) where Rees can deploy monitoring and service faster.</li>
+                <li>Federal Win: Prioritize the Federal/National Targets (ARC - NIH) to capture the long-cycle federal budget for hospital modernization and blood center regulatory compliance (AABB, cGMP).</li>
+                <li>Broad Coverage: Drive new logo acquisition using the highly targeted Regional Lists, balanced between large compliance-driven Hospital Networks and high-value Biotech/Pharma manufacturing and R&D centers.</li>
+            </ul>
+            <p class="mt-4 text-xs text-gray-300">
+                *Note: While massive capital projects like Merck and Lilly are still observed, they are no longer primary 2026 revenue drivers; rather, they serve as long-term reference targets.*
+            </p>
+        </footer>
+
+        <hr class="my-16 border-t-4 border-indigo-400">
+
+        <!-- START: Content from index2.html -->
+        <div class="max-w-7xl mx-auto">
+            <header class="mb-8 border-b pb-4">
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Europe Prospecting Initiative</h1>
+                <p class="text-gray-500">Prioritized target list built for Nov 18, 2025. Total prospects: 150.</p>
+            </header>
+    
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                <div class="card p-5 bg-white rounded-xl border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm font-medium text-gray-500">Tier 1 Targets</p>
+                        <i data-lucide="zap" class="w-5 h-5 text-red-500"></i>
+                    </div>
+                    <p class="text-3xl font-bold text-gray-900 mt-1">42</p>
+                    <span class="text-xs text-red-500 font-semibold mt-1 block">MUST CALL THIS QUARTER</span>
+                </div>
+                <div class="card p-5 bg-white rounded-xl border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm font-medium text-gray-500">Total Prospect List</p>
+                        <i data-lucide="layers-3" class="w-5 h-5 text-blue-500"></i>
+                    </div>
+                    <p class="text-3xl font-bold text-gray-900 mt-1">150</p>
+                    <span class="text-xs text-gray-400 font-semibold mt-1 block">Tier 1 (42) + Tier 2 (58) + Tier 3 (50)</span>
+                </div>
+                <div class="card p-5 bg-white rounded-xl border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm font-medium text-gray-500">Key Focus Modality</p>
+                        <i data-lucide="dna" class="w-5 h-5 text-purple-600"></i>
+                    </div>
+                    <p class="text-3xl font-bold text-gray-900 mt-1">Cell & Gene Therapy</p>
+                    <span class="text-xs text-purple-600 font-semibold mt-1 block">AAV, CAR-T, iPSC, mRNA, ADC</span>
+                </div>
+                <div class="card p-5 bg-white rounded-xl border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm font-medium text-gray-500">Top Country Cluster</p>
+                        <i data-lucide="flag" class="w-5 h-5 text-emerald-500"></i>
+                    </div>
+                    <p class="text-3xl font-bold text-gray-900 mt-1">United Kingdom</p>
+                    <span class="text-xs text-emerald-500 font-semibold mt-1 block">London, Cambridge, Oxford, Stevenage</span>
+                </div>
+            </div>
+    
+            <!-- Prioritization Chart -->
+            <div class="bg-white p-6 rounded-xl border border-gray-200 mb-12">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                    <i data-lucide="scatter-chart" class="w-5 h-5 text-indigo-600 mr-2"></i> Tier 1 Landscape: Funding vs. Scale
+                </h2>
+                <div class="h-96">
+                    <canvas id="prioritizationChart"></canvas>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">
+                    <strong>Y-Axis: Total Raised</strong> (Proxy for Investment/Lab Buildout). <strong>X-Axis: Employee Count</strong> (Proxy for Current Scale). Larger bubbles indicate public companies or massive organizations (Lonza, Novo Nordisk).
+                </p>
+            </div>
+    
+            <!-- Tier 1 Detailed Table -->
+            <div class="bg-white p-6 rounded-xl border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                    <i data-lucide="list-checks" class="w-5 h-5 text-red-500 mr-2"></i> Tier 1 Targets (42 Companies)
+                </h2>
+    
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-3 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Rank</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Company</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Country / City</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Focus / Modality</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Total Raised</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Employees</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200" id="tier1TableBody">
+                            <!-- Data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">
+                    *The full 42 Tier 1 companies are included in the source data. Showing a representative top 20 here for dashboard brevity.
+                </p>
+            </div>
+        </div>
+        <!-- END: Content from index2.html -->
+        
+    </div>
+
+    <script>
+        // CHART JAVASCRIPT from index.html
+        const colors = {
+            primary: '#4F46E5',
+            secondary: '#10B981',
+            tertiary: '#F59E0B',
+            accent: '#3B82F6',
+            slate: '#64748B',
+            lightSlate: '#94A3B8'
+        };
+        
+        const chartDefaults = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#0F172A',
+                        font: { family: 'Inter', size: 13, weight: '600' },
+                        padding: 15
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                    padding: 12,
+                    titleFont: { family: 'Inter', size: 14, weight: '700' },
+                    bodyFont: { family: 'Inter', size: 13 },
+                    borderColor: '#E2E8F0',
+                    borderWidth: 1
+                }
+            }
+        };
+
+        function initMainCharts() {
+            // Regional Growth Chart
+            if(document.getElementById('growthChart')) {
+                new Chart(document.getElementById('growthChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Northeast', 'West', 'Europe', 'ARC–NIH', 'Southern/TX', 'Southeast'],
+                        datasets: [{
+                            label: 'Target Growth ($M)',
+                            data: [3.0, 2.5, 2.0, 1.0, 1.0, 0.5],
+                            backgroundColor: colors.secondary,
+                            borderRadius: 8,
+                            barThickness: 50
+                        }]
+                    },
+                    options: {
+                        ...chartDefaults,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: { display: true, color: '#F1F5F9' },
+                                title: { 
+                                    display: true, 
+                                    text: 'Allocated Growth (Millions $)', 
+                                    color: '#0F172A', 
+                                    font: { family: 'Inter', size: 14, weight: '700' },
+                                    padding: 10
+                                },
+                                ticks: { 
+                                    color: '#475569',
+                                    font: { family: 'Inter', size: 12, weight: '600' },
+                                    callback: (value) => '+' + value + 'M'
+                                }
+                            },
+                            y: { 
+                                grid: { display: false },
+                                ticks: { 
+                                    color: '#0F172A', 
+                                    font: { family: 'Inter', size: 13, weight: '600' },
+                                    padding: 8
+                                }
+                            }
+                        },
+                        plugins: { 
+                            ...chartDefaults.plugins, 
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+
+            // Top 5 Projects Chart
+            if(document.getElementById('megaProjectChart')) {
+                new Chart(document.getElementById('megaProjectChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                            ['Merck CoE', '(Elkton, VA)'],
+                            ['J&J/FUJIFILM', '(Holly Springs, NC)'],
+                            ['Dana-Farber', '(Boston, MA)'],
+                            ['GSK Flex Factory', '(Upper-Merion, PA)'],
+                            ['Amgen R&D', '(Thousand Oaks, CA)']
+                        ],
+                        datasets: [{
+                            label: 'Capital Investment',
+                            data: [3.0, 2.0, 1.675, 1.2, 0.6],
+                            backgroundColor: [colors.accent, colors.accent, colors.primary, colors.accent, colors.primary],
+                            borderRadius: 8,
+                            barThickness: 60
+                        }]
+                    },
+                    options: {
+                        ...chartDefaults,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { display: true, color: '#F1F5F9' },
+                                title: { 
+                                    display: true, 
+                                    text: 'Capital Spend (Billions $)', 
+                                    color: '#0F172A', 
+                                    font: { family: 'Inter', size: 14, weight: '700' },
+                                    padding: 10
+                                },
+                                ticks: { 
+                                    color: '#475569',
+                                    font: { family: 'Inter', size: 12, weight: '600' },
+                                    callback: (value) => '+' + value + 'B'
+                                }
+                            },
+                            x: { 
+                                grid: { display: false },
+                                ticks: { 
+                                    color: '#0F172A', 
+                                    font: { family: 'Inter', size: 12, weight: '600' },
+                                    padding: 8
+                                }
+                            }
+                        },
+                        plugins: { 
+                            ...chartDefaults.plugins, 
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+
+            // Competitive Positioning Bubble Chart
+            if(document.getElementById('competitiveChart')) {
+                new Chart(document.getElementById('competitiveChart'), {
+                    type: 'bubble',
+                    data: {
+                        datasets: [
+                            {
+                                label: 'High-End / Compliance',
+                                data: [
+                                    { x: 9, y: 10, r: 18, label: 'Rees Scientific' },
+                                    { x: 8, y: 9, r: 12, label: 'Vaisala' },
+                                    { x: 7, y: 8, r: 11, label: 'XiltriX' },
+                                    { x: 6, y: 7, r: 9, label: 'ELPRO' }
+                                ],
+                                backgroundColor: colors.primary + 'dd',
+                                borderColor: colors.primary,
+                                borderWidth: 2
+                            },
+                            {
+                                label: 'Mid-Tier / R&D',
+                                data: [
+                                    { x: 5, y: 5, r: 8, label: 'Elemental Machines' },
+                                    { x: 4, y: 4, r: 7, label: 'Dickson' }
+                                ],
+                                backgroundColor: colors.accent + 'dd',
+                                borderColor: colors.accent,
+                                borderWidth: 2
+                            },
+                            {
+                                label: 'Low-End / Commodity',
+                                data: [
+                                    { x: 3, y: 3, r: 7, label: 'TempGenius' },
+                                    { x: 2, y: 2, r: 6, label: 'Sensaphone' }
+                                ],
+                                backgroundColor: colors.lightSlate + 'dd',
+                                borderColor: colors.slate,
+                                borderWidth: 2
+                            }
+                        ]
+                    },
+                    options: {
+                        ...chartDefaults,
+                        plugins: {
+                            ...chartDefaults.plugins,
+                            legend: { 
+                                position: 'bottom',
+                                labels: {
+                                    ...chartDefaults.plugins.legend.labels,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                ...chartDefaults.plugins.tooltip,
+                                callbacks: {
+                                    label: (context) => {
+                                        const item = context.dataset.data[context.dataIndex];
+                                        return ` ${item.label} (Complexity: ${item.x}, Compliance: ${item.y})`;
+                                    },
+                                    title: () => ''
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                min: 0,
+                                max: 10,
+                                grid: { color: '#F1F5F9' },
+                                title: { 
+                                    display: true, 
+                                    text: 'System Complexity / Price →', 
+                                    color: '#0F172A', 
+                                    font: { family: 'Inter', size: 13, weight: '700' },
+                                    padding: 10
+                                },
+                                ticks: {
+                                    color: '#475569',
+                                    font: { family: 'Inter', size: 11, weight: '600' }
+                                }
+                            },
+                            y: {
+                                min: 0,
+                                max: 10,
+                                grid: { color: '#F1F5F9' },
+                                title: { 
+                                    display: true, 
+                                    text: 'Regulatory Compliance Focus →', 
+                                    color: '#0F172A', 
+                                    font: { family: 'Inter', size: 13, weight: '700' },
+                                    padding: 10
+                                },
+                                ticks: {
+                                    color: '#475569',
+                                    font: { family: 'Inter', size: 11, weight: '600' }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+
+    <script>
+        // --- START: SCRIPT from index2.html ---
+
+        // Data for the top 27 companies (as provided in the prompt)
+        const tier1Data = [
+            { rank: 1, company: 'AstronauTx', city: 'London (White City)', country: 'UK', focus: 'AAV Gene Therapy', raised: 130, employees: 80, tier: 1, color: '#EF4444', modality: 'AAV' },
+            { rank: 2, company: 'Quell Therapeutics', city: 'London', country: 'UK', focus: 'Regulatory CAR-T', raised: 200, employees: 120, tier: 1, color: '#EF4444', modality: 'Cell Therapy' },
+            { rank: 3, company: 'Freeline Therapeutics', city: 'Stevenage', country: 'UK', focus: 'AAV Capsids', raised: 250, employees: 100, tier: 1, color: '#EF4444', modality: 'AAV' },
+            { rank: 4, company: 'Autolus Therapeutics', city: 'London (White City)', country: 'UK', focus: 'CAR-T', raised: 400, employees: 450, tier: 1, color: '#EF4444', modality: 'Cell Therapy' },
+            { rank: 5, company: 'Achilles Therapeutics', city: 'London', country: 'UK', focus: 'Personalized Cancer Vaccines', raised: 200, employees: 140, tier: 1, color: '#EF4444', modality: 'Cell Therapy' },
+            { rank: 6, company: 'CellCentric', city: 'Cambridge', country: 'UK', focus: 'p300/CBP inhibitor + cell', raised: 75, employees: 70, tier: 1, color: '#EF4444', modality: 'Small Mol + Cell' },
+            { rank: 7, company: 'Bit Bio', city: 'Cambridge', country: 'UK', focus: 'iPSC-derived cells', raised: 200, employees: 220, tier: 1, color: '#EF4444', modality: 'Cell Therapy' },
+            { rank: 8, company: 'Exscientia', city: 'Oxford', country: 'UK', focus: 'AI + Biologics', raised: 700, employees: 400, tier: 1, color: '#EF4444', modality: 'AI/Biologics' },
+            { rank: 9, company: 'BenevolentAI', city: 'London', country: 'UK', focus: 'AI + Cell Screening', raised: 350, employees: 200, tier: 1, color: '#EF4444', modality: 'AI/Cell' },
+            { rank: 10, company: 'Isomorphic Labs', city: 'London', country: 'UK', focus: 'Massive Lab Buildout', raised: 500, employees: 150, tier: 1, color: '#EF4444', modality: 'AI/Struct. Bio' },
+            { rank: 11, company: 'BioNTech (UK Sites)', city: 'Cambridge', country: 'UK', focus: 'mRNA, CAR-T, iPSC', raised: 1000, employees: 500, tier: 1, color: '#EF4444', modality: 'mRNA/Cell Therapy', public: true },
+            { rank: 12, company: 'CureVac', city: 'Tübingen', country: 'Germany', focus: 'mRNA Vaccines/Therapy', raised: 1200, employees: 1000, tier: 1, color: '#EF4444', modality: 'mRNA', public: true },
+            { rank: 13, company: 'Evotec (New Sites)', city: 'Hamburg, Göttingen', country: 'Germany', focus: 'iPSC, AAV, CAR-T CDMO', raised: 2000, employees: 5000, tier: 1, color: '#EF4444', modality: 'CDMO/Cell & Gene', public: true },
+            { rank: 14, company: 'CatalYm', city: 'Munich', country: 'Germany', focus: 'GDF-15 Antibody + Cell Combo', raised: 150, employees: 80, tier: 1, color: '#EF4444', modality: 'Antibody/Cell' },
+            { rank: 15, company: 'Immatics', city: 'Tübingen', country: 'Germany', focus: 'TCR Engineering', raised: 450, employees: 400, tier: 1, color: '#EF4444', modality: 'TCR-T' },
+            { rank: 16, company: 'Tubulis', city: 'Munich', country: 'Germany', focus: 'P5 Conjugation ADC', raised: 200, employees: 100, tier: 1, color: '#EF4444', modality: 'ADC' },
+            { rank: 17, company: 'ITM Isotope Technologies', city: 'Munich', country: 'Germany', focus: 'Radioconjugates', raised: 300, employees: 400, tier: 1, color: '#EF4444', modality: 'Radiopharma' },
+            { rank: 18, company: 'Ariceum Therapeutics', city: 'Berlin', country: 'Germany', focus: 'Radiopharma', raised: 100, employees: 60, tier: 1, color: '#EF4444', modality: 'Radiopharma' },
+            { rank: 19, company: 'Lysogene (Sarepta-owned)', city: 'Paris', country: 'France', focus: 'AAV CNS Gene Therapy', raised: 50, employees: 50, tier: 1, color: '#EF4444', modality: 'AAV' },
+            { rank: 20, company: 'Sensorion', city: 'Montpellier', country: 'France', focus: 'AAV Inner Ear Gene Therapy', raised: 100, employees: 60, tier: 1, color: '#EF4444', modality: 'AAV' },
+            { rank: 21, company: 'Genethon', city: 'Evry', country: 'France', focus: 'AAV, Lentiviral Nonprofit', raised: 250, employees: 300, tier: 1, color: '#EF4444', modality: 'AAV/Lentiviral' },
+            { rank: 22, company: 'Novo Nordisk (Cell Expansion)', city: 'Copenhagen', country: 'Denmark', focus: 'Stem Cell Therapy', raised: 5000, employees: 500, tier: 1, color: '#EF4444', modality: 'Stem Cell' },
+            { rank: 23, company: 'Minervax', city: 'Copenhagen', country: 'Denmark', focus: 'GBS Vaccine', raised: 100, employees: 50, tier: 1, color: '#EF4444', modality: 'Vaccine/Cell' },
+            { rank: 24, company: 'Adcendo', city: 'Copenhagen', country: 'Denmark', focus: 'ADC', raised: 150, employees: 70, tier: 1, color: '#EF4444', modality: 'ADC' },
+            { rank: 25, company: 'NMD Pharma', city: 'Aarhus', country: 'Denmark', focus: 'Ion Channel Assays', raised: 100, employees: 60, tier: 1, color: '#EF4444', modality: 'Small Mol/Cell' },
+            { rank: 26, company: 'Lonza (Viral Vector)', city: 'Basel, Stein', country: 'Switzerland', focus: 'AAV, Lentiviral CDMO', raised: 8000, employees: 10000, tier: 1, color: '#EF4444', modality: 'CDMO/Gene Therapy', public: true },
+            { rank: 27, company: 'CRISPR Therapeutics', city: 'Zug', country: 'Switzerland', focus: 'CRISPR Cas9', raised: 750, employees: 500, tier: 1, color: '#EF4444', modality: 'CRISPR/Cell' }
+            // Ranks 28-42 are summarized as 'Similar high-fit names...'
+        ];
+
+        // --- Utility Functions ---
+
+        function getModalityBadge(modality) {
+            let className = '';
+            if (modality.includes('AAV') || modality.includes('Gene Therapy') || modality.includes('Lentiviral')) {
+                className = 'badge-color-aav';
+            } else if (modality.includes('Cell Therapy') || modality.includes('CAR-T') || modality.includes('iPSC') || modality.includes('Stem Cell')) {
+                className = 'badge-color-cell';
+            } else if (modality.includes('mRNA')) {
+                className = 'badge-color-mrna';
+            } else if (modality.includes('ADC') || modality.includes('Radiopharma')) {
+                className = 'badge-color-adc';
+            } else {
+                className = 'bg-gray-400 text-white';
+            }
+            return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${className}">${modality.split('/')[0].trim()}</span>`;
+        }
+        
+        // --- Table Initialization ---
+
+        function populateTable() {
+            const tbody = document.getElementById('tier1TableBody');
+            if (!tbody) return;
+            tbody.innerHTML = ''; // Clear existing rows
+
+            // Filter data to show the top 20 (or max available)
+            const displayData = tier1Data.slice(0, 20);
+
+            displayData.forEach(company => {
+                const row = document.createElement('tr');
+                row.classList.add('hover:bg-gray-50');
+
+                row.innerHTML = `
+                    <td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${company.rank}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-600">${company.company}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <span class="font-semibold">${company.country}</span>, ${company.city}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        ${getModalityBadge(company.focus)}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">$${company.raised.toLocaleString()}M${company.public ? ' (Public)' : '+'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${company.employees.toLocaleString()}${company.public ? '+' : ''}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // --- Chart Initialization ---
+
+        function initProspectingCharts() {
+            const ctx = document.getElementById('prioritizationChart');
+            if (!ctx) return;
+
+            // Convert data for the bubble chart
+            const chartData = tier1Data.map(c => {
+                // Adjust size (r) based on combined funding and employees, and cap large outliers like Lonza/Novo Nordisk
+                let sizeFactor = 1;
+                if (c.public) {
+                    // Public/Massive companies get a larger fixed size to represent scale
+                    sizeFactor = 1.8;
+                } else if (c.raised > 300) {
+                    sizeFactor = 1.4;
+                }
+                const r = Math.min(20, (Math.log10(c.raised * c.employees) * sizeFactor)); 
+                
+                // Map raised values (in millions) to Y-axis. Cap for visualization clarity.
+                const yValue = Math.min(c.raised, 800); 
+
+                // Map employees to X-axis. Cap for visualization clarity.
+                const xValue = Math.min(c.employees, 550); 
+
+                return {
+                    x: xValue, // Employees (X)
+                    y: yValue, // Raised (Y)
+                    r: r,      // Size (Combined scale)
+                    company: c.company,
+                    country: c.country,
+                    focus: c.focus
+                };
+            });
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: 'Tier 1 Targets',
+                        data: chartData,
+                        backgroundColor: chartData.map(d => 'rgba(239, 68, 68, 0.7)'), // Red 500
+                        borderColor: chartData.map(d => '#EF4444'),
+                        hoverBackgroundColor: 'rgba(185, 28, 28, 0.9)', // Red 700
+                        hoverBorderColor: '#B91C1C',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const data = context.raw;
+                                    return [
+                                        `Company: ${data.company}`,
+                                        `Country: ${data.country}`,
+                                        `Focus: ${data.focus}`,
+                                        `Raised: $${data.y.toLocaleString()}M+`,
+                                        `Employees: ${data.x.toLocaleString()}+`,
+                                    ];
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Investment vs. Scale for Tier 1 Prospects',
+                            font: { size: 16, weight: 'bold' },
+                            color: '#1f2937'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            title: {
+                                display: true,
+                                text: 'Employee Headcount (Scaled)',
+                                color: '#4b5563',
+                                font: { weight: 'bold' }
+                            },
+                            ticks: {
+                                callback: (value) => `${value}+`,
+                                stepSize: 100
+                            },
+                            grid: { color: '#e5e7eb' },
+                            min: 0,
+                            max: 600
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Total Capital Raised (M USD - Scaled)',
+                                color: '#4b5563',
+                                font: { weight: 'bold' }
+                            },
+                            ticks: {
+                                callback: (value) => `$${value}M+`,
+                                stepSize: 100
+                            },
+                            grid: { color: '#e5e7eb' },
+                            min: 0,
+                            max: 850
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- App Load Logic ---
+
+        function initializeAllContent() {
+            // From original index.html
+            initMainCharts();
+
+            // From original index2.html
+            populateTable();
+            initProspectingCharts();
+
+            // Universal
+            lucide.createIcons();
+        }
+
+        if (typeof Chart !== 'undefined') {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeAllContent);
+            } else {
+                initializeAllContent();
+            }
+        } else {
+            window.addEventListener('load', initializeAllContent);
+        }
+        
+    </script>
+</body>
+</html>
